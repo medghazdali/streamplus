@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'step3.title'|trans }}{% endblock %}
+
+{% block body %}
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-header">
+						<h1 class="h3 mb-0">{{ 'step3.title'|trans }}</h1>
+					</div>
+					<div class="card-body">
+						{% if form.vars.errors|length > 0 %}
+							<div class="alert alert-danger">
+								<ul class="mb-0">
+									{% for error in form.vars.errors %}
+										<li>{{ error.message|trans }}</li>
+									{% endfor %}
+								</ul>
+							</div>
+						{% endif %}
+
+						{{ form_start(form, {'attr': {'id': 'payment-form'}}) }}
+							<div class="row">
+								<div class="col-md-12 mb-3">
+									{{ form_row(form.creditCardNumber) }}
+								</div>
+								<div class="col-md-6 mb-3">
+									{{ form_row(form.expirationDate) }}
+								</div
+								<div class="col-md-6 mb-3">
+									{{ form_row(form.cvv) }}
+								</div>
+							</div>
+							<div class="mt-4 d-flex justify-content-between">
+								<a href="{{ path('onboarding_step2') }}" class="btn btn-secondary">{{ 'app.back'|trans }}</a>
+								<button type="submit" class="btn btn-primary">{{ 'step3.next'|trans }}</button>
+							</div>
+						{{ form_end(form) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const form = document.getElementById('payment-form');
+			const creditCardInput = document.getElementById('payment_creditCardNumber');
+			const expirationInput = document.getElementById('payment_expirationDate');
+			const cvvInput = document.getElementById('payment_cvv');
+
+			// Format credit card number
+			creditCardInput.addEventListener('input', function(e) {
+				let value = e.target.value.replace(/\D/g, '');
+				value = value.replace(/(\d{4})/g, '$1 ').trim();
+				e.target.value = value;
+			});
+
+			// Format expiration date
+			expirationInput.addEventListener('input', function(e) {
+				let value = e.target.value.replace(/\D/g, '');
+				if (value.length >= 2) {
+					value = value.slice(0, 2) + '/' + value.slice(2);
+				}
+				e.target.value = value;
+			});
+
+			// Format CVV
+			cvvInput.addEventListener('input', function(e) {
+				let value = e.target.value.replace(/\D/g, '');
+				value = value.slice(0, 4);
+				e.target.value = value;
+			});
+
+			// Validate expiration date
+			form.addEventListener('submit', function(e) {
+				const expirationDate = expirationInput.value;
+				if (expirationDate) {
+					const [month, year] = expirationDate.split('/');
+					const expDate = new Date(year, month - 1, 1);
+					const today = new Date();
+					
+					if (expDate <= today) {
+						e.preventDefault();
+						alert('{{ "The expiration date must be in the future"|trans }}');
+					}
+				}
+			});
+		});
+	</script>
+{% endblock %}

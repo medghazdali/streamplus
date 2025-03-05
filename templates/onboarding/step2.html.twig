@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'step2.title'|trans }}{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+	<div class="row justify-content-center">
+		<div class="col-md-8">
+			<div class="card">
+				<div class="card-header">
+					<h1 class="h3 mb-0">{{ 'step2.title'|trans }}</h1>
+				</div>
+				<div class="card-body">
+					{% if form.vars.errors|length > 0 %}
+						<div class="alert alert-danger">
+							<ul class="mb-0">
+								{% for error in form.vars.errors %}
+									<li>{{ error.message }}</li>
+								{% endfor %}
+							</ul>
+						</div>
+					{% endif %}
+
+					{{ form_start(form, {'attr': {'id': 'address-form'}}) }}
+						<div class="row">
+							<div class="col-md-12 mb-3">
+								{{ form_row(form.country) }}
+							</div>
+						</div>
+						<div id="address-fields">
+							{{ form_row(form.addressLine1) }}
+							{{ form_row(form.addressLine2) }}
+							{{ form_row(form.city) }}
+							{{ form_row(form.postalCode) }}
+							{{ form_row(form.stateOrProvince) }}
+						</div>
+						<div class="mt-4 d-flex justify-content-between">
+							<a href="{{ path('onboarding_step1') }}" class="btn btn-secondary">{{ 'app.back'|trans }}</a>
+							<button type="submit" class="btn btn-primary">{{ 'step2.next'|trans }}</button>
+						</div>
+					{{ form_end(form) }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% block javascripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	const countrySelect = document.getElementById('address_country');
+	const addressFields = document.getElementById('address-fields');
+	const form = document.getElementById('address-form');
+
+	countrySelect.addEventListener('change', function() {
+		const country = this.value;
+		const formData = new FormData();
+		formData.append('country', country);
+
+		fetch('{{ path('onboarding_step2') }}', {
+			method: 'POST',
+			body: formData,
+			headers: {
+				'X-Requested-With': 'XMLHttpRequest'
+			}
+		})
+		.then(response => response.text())
+		.then(html => {
+			const parser = new DOMParser();
+			const doc = parser.parseFromString(html, 'text/html');
+			const newFields = doc.getElementById('address-fields');
+			addressFields.innerHTML = newFields.innerHTML;
+		});
+	});
+});
+</script>
+{% endblock %}
+{% endblock %}

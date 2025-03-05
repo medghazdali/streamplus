@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'steps.step1'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">{{ 'steps.step1'|trans }}</h2>
+                    </div>
+                    <div class="card-body">
+                        {% if form.vars.errors|length > 0 %}
+                            <div class="alert alert-danger">
+                                <ul class="mb-0">
+                                    {% for error in form.vars.errors %}
+                                        <li>{{ error.message|trans }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+
+                        {{ form_start(form, {'attr': {'id': 'step1-form'}}) }}
+                            <div class="mb-3">
+                                {{ form_row(form.name, {
+                                    'label': 'form.user.name'|trans,
+                                    'attr': {'class': 'form-control'}
+                                }) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form_row(form.email, {
+                                    'label': 'form.user.email'|trans,
+                                    'attr': {'class': 'form-control'}
+                                }) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form_row(form.phone, {
+                                    'label': 'form.user.phone'|trans,
+                                    'attr': {'class': 'form-control'}
+                                }) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form_row(form.subscriptionType, {
+                                    'label': 'form.user.subscription_type'|trans,
+                                    'attr': {'class': 'form-select'}
+                                }) }}
+                            </div>
+
+                            <div class="d-flex justify-content-between mt-4">
+                                <a href="{{ path('onboarding_step1') }}" class="btn btn-secondary">{{ 'app.previous'|trans }}</a>
+                                <button type="submit" class="btn btn-primary">{{ 'app.next'|trans }}</button>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

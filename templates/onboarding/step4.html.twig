@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'step4.title'|trans }}{% endblock %}
+
+{% block body %}
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-header">
+						<h1 class="h3 mb-0">{{ 'step4.title'|trans }}</h1>
+					</div>
+					<div class="card-body">
+						<div class="mb-4">
+							<h2 class="h4">{{ 'step4.user_info'|trans }}</h2>
+							<div class="row">
+								<div class="col-md-6">
+									<p><strong>{{ 'form.user.name'|trans }}:</strong> {{ user.name }}</p>
+									<p><strong>{{ 'form.user.email'|trans }}:</strong> {{ user.email }}</p>
+								</div>
+								<div class="col-md-6">
+									<p><strong>{{ 'form.user.phone'|trans }}:</strong> {{ user.phone }}</p>
+									<p><strong>{{ 'form.user.subscription_type'|trans }}:</strong> {{ user.subscriptionType|trans }}</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="mb-4">
+							<h2 class="h4">{{ 'step4.address_info'|trans }}</h2>
+							{% for address in user.addresses %}
+								<div class="card mb-3">
+									<div class="card-body">
+										<p><strong>{{ 'form.address.country'|trans }}:</strong> {{ address.country }}</p>
+										<p><strong>{{ 'form.address.address_line1'|trans }}:</strong> {{ address.addressLine1 }}</p>
+										{% if address.addressLine2 %}
+											<p><strong>{{ 'form.address.address_line2'|trans }}:</strong> {{ address.addressLine2 }}</p>
+										{% endif %}
+										<p><strong>{{ 'form.address.city'|trans }}:</strong> {{ address.city }}</p>
+										<p><strong>{{ 'form.address.postal_code'|trans }}:</strong> {{ address.postalCode }}</p>
+										<p><strong>{{ 'form.address.state_province'|trans }}:</strong> {{ address.stateOrProvince }}</p>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+
+						{% if user.subscriptionType == 'premium' %}
+							<div class="mb-4">
+								<h2 class="h4">{{ 'step4.payment_info'|trans }}</h2>
+								{% for payment in formattedPayments %}
+									<div class="card mb-3">
+										<div class="card-body">
+											<p><strong>{{ 'form.payment.credit_card'|trans }}:</strong> {{ payment.creditCardNumber|slice(-4) }}</p>
+											<p><strong>{{ 'form.payment.expiration_date'|trans }}:</strong> {{ payment.expirationDate }}</p>
+										</div>
+									</div>
+								{% endfor %}
+							</div>
+						{% endif %}
+
+						{{ form_start(form) }}
+							<div class="mt-4 d-flex justify-content-between">
+								<a href="{{ path('onboarding_step3') }}" class="btn btn-secondary">{{ 'app.back'|trans }}</a>
+							</div>
+						{{ form_end(form) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

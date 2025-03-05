@@ -1,0 +1,105 @@
+# General
+app:
+  title: 'StreamPlus'
+  next: 'Next'
+  previous: 'Previous'
+  back: 'Back'
+  submit: 'Submit'
+  required: 'Required field'
+  optional: 'Optional field'
+
+# Steps
+steps:
+  step1: 'Step 1: User Information'
+  step2: 'Step 2: Address Information'
+  step3: 'Step 3: Payment Information'
+  step4: 'Step 4: Confirmation'
+  success: 'Registration Complete'
+
+# Step Titles
+step1:
+  title: 'User Information'
+  next: 'Next'
+
+step2:
+  title: 'Address Information'
+  next: 'Next'
+
+step3:
+  title: 'Payment Information'
+  next: 'Next'
+
+step4:
+  title: 'Confirmation'
+  submit: 'Complete Registration'
+  user_info: 'User Information'
+  address_info: 'Address Information'
+  payment_info: 'Payment Information'
+
+# Form Labels
+form:
+  user:
+    name: 'Full Name'
+    email: 'Email Address'
+    phone: 'Phone Number'
+    subscription_type: 'Subscription Type'
+    subscription_types:
+      free: 'Free'
+      premium: 'Premium'
+  
+  address:
+    country: 'Country'
+    street: 'Street Address'
+    city: 'City'
+    state: 'State'
+    zip_code: 'ZIP Code'
+    county: 'County'
+    postcode: 'Postcode'
+    prefecture: 'Prefecture'
+    postal_code: 'Postal Code'
+    department: 'Department'
+    address_line1: 'Address Line 1'
+    address_line2: 'Address Line 2'
+    state_or_province: 'State/Province'
+
+  payment:
+    credit_card: 'Credit Card Number'
+    expiration_date: 'Expiration Date'
+    cvv: 'CVV'
+
+  confirmation:
+    terms: 'I agree to the terms and conditions'
+    privacy: 'I agree to the privacy policy'
+
+# Validation Messages
+validation:
+  required: 'This field is required'
+  email: 'Please enter a valid email address'
+  phone: 'Please enter a valid phone number'
+  credit_card: 'Please enter a valid credit card number'
+  expiration_date: 'Please enter a valid expiration date (MM/YY)'
+  cvv: 'Please enter a valid CVV'
+  postal_code:
+    us: 'Please enter a valid ZIP code (e.g., 12345 or 12345-6789)'
+    gb: 'Please enter a valid UK postcode'
+    jp: 'Please enter a valid Japanese postal code (e.g., 123-4567)'
+    fr: 'Please enter a valid French postal code (5 digits)'
+    de: 'Please enter a valid German postal code (5 digits)'
+  terms: 'You must agree to the terms and conditions'
+  privacy: 'You must agree to the privacy policy'
+
+# Countries
+countries:
+  US: 'United States'
+  GB: 'United Kingdom'
+  JP: 'Japan'
+  FR: 'France'
+  DE: 'Germany'
+
+# Success Messages
+success:
+  title: 'Registration Complete'
+  message: 'Thank you for registering with StreamPlus!'
+  next_steps: 'Next Steps'
+  check_email: 'Please check your email for confirmation.'
+  login: 'Login to your account' 
